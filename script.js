@@ -1,28 +1,38 @@
-// Assignment code here
-var password=document.getElementById(".password");
-
-// Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
+var specialchar = ["#", "$", "%", "&", "*", "=", "@", "~"];
+var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+var bigLetters = [ "A", "B","C", "D", "E", "F", "G","H", "I", "J", "K", "L", "M", "N", "O", "P","Q","R","S", "T", "U", "V","W", "X","Y","Z",
+];
 
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("0123456789!#$%&'()*+,-./:;<=>?@[\]^_`{|}~qwertyuiopasdfghjklzxcvbnm");
-  var passwordLenght = 8;
-  var chars = "  "
 
-  
-  passwordText.value = password;
-  for (var i = 0; i <= passwordLenght; i++ ) {
-    var randomNumber = Math.floor(math.random() * chars.length); 
-    password += chars.substring(randomNumber, randomNumber +1);
-    return;
+var LowerCaseLetters = bigLetters.map((array) => {
+  return array.toLowerCase();
+});
 
-  }
+var all = LowerCaseLetters.concat(bigLetters, specialchar, numbers);
 
+var userIn = prompt("How many character would you like to get for your password?");
+if (isNaN(userIn)) {
+  alert("Only numbers please.");
+} else {
+  var userInputSpec = prompt("Would you like special characters?");
 }
 
-// Add event listener to generate button
 
-password.addEventListener("click", writePassword);
+function generatePassword() {
+  var password = "";
+  for (var i = 0; i < userIn; i++) {
+    password += all[Math.floor(Math.random() * all.length)];
+  }
+  return password;
+}
 
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+
+  passwordText.value = password;
+}
+
+
+generateBtn.addEventListener("click", writePassword);
